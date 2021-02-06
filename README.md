@@ -3,4 +3,4 @@
 Object oriented Swarm Optimization Toolbox for Octave/Matlab
 
 ## Rererences
-*Kennedy, J.; Eberhart, R. (1995). "Particle Swarm Optimization". Proceedings of IEEE International Conference on Neural Networks. IV. pp. 1942–1948.*
+- *Kennedy, J.; Eberhart, R. (1995). "Particle Swarm Optimization". Proceedings of IEEE International Conference on Neural Networks. IV. pp. 1942–1948.*

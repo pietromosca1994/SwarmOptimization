@@ -1,11 +1,16 @@
+%% Test script for the algorithm Particle Swarm Optimizer
+%% Author: Pietro Mosca
+%% Email: pietromosca@gmail.comet
+%% Date: 04.02.2021
+
 clear all;
 
-addpath('./test_functions');
+addpath('../benchmark_functions');
+addpath('../');
 
 %% Input definition
-
 n_iter=50;
-verbose=5;
+verbose=10;
 log_active=true;
 
 % Objective Function

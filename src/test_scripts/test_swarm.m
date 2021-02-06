@@ -1,6 +1,11 @@
+%% Test script for the classes swarm and topology
+%% Author: Pietro Mosca
+%% Email: pietromosca@gmail.comet
+%% Date: 04.02.2021
+
 clear all;
 
-addpath('./test_functions');
+addpath('./benchmark_functions');
 
 fun=@sphere;
 

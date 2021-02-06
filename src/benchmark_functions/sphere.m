@@ -1,4 +1,4 @@
-%% Rosenbrock function implementation
+%% Sphere function implementation
 %% Author:  Pietro Mosca
 %% Email:   pietromosca1994@gmail.com
 %% Date:    20.09.2020

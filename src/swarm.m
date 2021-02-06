@@ -1,3 +1,8 @@
+%% Class Swarm
+%% Author: Pietro Mosca
+%% Email: pietromosca@gmail.comet
+%% Date: 04.02.2021
+
 classdef swarm<handle
     properties
         x;              % array(n_particles, dimensions)    position-matrix at a single timestep  

@@ -1,4 +1,8 @@
 %% Implementation of the Particle Swarm Optimization Algorithm
+%% Author: Pietro Mosca
+%% Email: pietromosca@gmail.comet
+%% Date: 04.02.2021
+%% Reference: Kennedy, J.; Eberhart, R. (1995). "Particle Swarm Optimization". Proceedings of IEEE International Conference on Neural Networks. IV. pp. 1942–1948.
 
 % Arguments
 % fun:     function handle

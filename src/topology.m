@@ -1,3 +1,8 @@
+%% Topology Class
+%% Author: Pietro Mosca
+%% Email: pietromosca@gmail.comet
+%% Date: 04.02.2021
+
 classdef topology<handle
     properties
         algorithm;

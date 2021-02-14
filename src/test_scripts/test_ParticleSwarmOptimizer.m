@@ -1,6 +1,6 @@
 %% Test script for the algorithm Particle Swarm Optimizer
 %% Author: Pietro Mosca
-%% Email: pietromosca@gmail.comet
+%% Email: pietromosca1994@gmail.com
 %% Date: 04.02.2021
 
 clear all;

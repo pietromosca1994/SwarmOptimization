@@ -43,8 +43,3 @@ disp(['Y_best', num2str(gbest_y)]);
 
 figure()
 plot(log.gbest_y);
-
-
-
-
-

@@ -5,7 +5,8 @@
 
 clear all;
 
-addpath('./benchmark_functions');
+addpath('../benchmark_functions');
+addpath('../')
 
 fun=@sphere;
 
@@ -24,7 +25,7 @@ swarm.init(100,2,'Uniform', domain, fun);
 
 % plotting swarm
 figure();
-swarm.plot()
+swarm.plot(domain)
 
 % topology 
 topology=topology;
@@ -33,7 +34,7 @@ topology.update_velocity(swarm, param);
 
 % plotting swarm
 figure();
-swarm.plot()
+swarm.plot(domain)
 
 
 

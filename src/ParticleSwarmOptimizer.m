@@ -24,7 +24,7 @@ function [gbest_x, gbest_y, log]=ParticleSwarmOptimizer(fun, swarm, topology, n_
         if verbose>0
             if rem(i, verbose)==0
                 figure('Name', ['Step', num2str(i)]);
-                swarm.plot(domain);
+                swarm.plot(fun, domain);
             end
         end
         

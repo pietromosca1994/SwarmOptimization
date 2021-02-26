@@ -79,7 +79,7 @@ classdef swarm<handle
         
         %% plot current particle scatter distribution
         % obj
-        function plot(obj, domain)
+        function plot(obj, fun, domain)
             % 2D particle visualization
             subplot(1,2,1);
 
@@ -99,8 +99,29 @@ classdef swarm<handle
             subplot(1,2,2)
             % plot particle position
             
-            scatter3(obj.x(:, 1), obj.x(:, 2), obj.y);
+            % suface computation 
+            res=25; % grid resolution
+            %x_axis=linspace(min(obj.x(:,1)), max(obj.x(:,1)), res);
+            %y_axis=linspace(min(obj.x(:,2)), max(obj.x(:,2)), res);
             
+            x_axis=linspace(domain.lo(1), domain.hi(2), res);
+            y_axis=linspace(domain.lo(2), domain.hi(2), res);
+            
+            for i=1:res
+                for j=1:res
+                    Z(i,j)=fun([x_axis(i), y_axis(j)]);
+                end 
+            end
+            
+
+            surf(x_axis, y_axis, Z', 'FaceAlpha',0.5);
+            % contourf(x_axis, y_axis, Z')
+            hold on;
+            scatter3(obj.x(:, 1), obj.x(:, 2), obj.y, 'filled');
+            % scatter(obj.x(:, 1), obj.x(:, 2));
+            % plot velocity vector field
+            % quiver(obj.x(:, 1), obj.x(:, 2), obj.v(:,1), obj.v(:,2));
+           
             xlabel('x_1');
             ylabel('x_2');
             xlim([domain.lo(1)+domain.lo(1)*0.1, domain.hi(1)+domain.hi(1)*0.1]);

@@ -21,9 +21,10 @@ domain.hi=[1,1];
 domain.lo=[-1,-1];
 
 % Algorithm Parameter Definition
-alg_param.w=0.1;
-alg_param.c1=0.5;
-alg_param.c2=0.2;
+alg_param.w=0.1;        % velocity associated parameter
+alg_param.c1=0.5;       % personal best position coefficient
+alg_param.c2=0.2;       % global best position coefficient
+alg_param.lr=1;         % learning rate
 
 % Swarm Parameters Definition
 swarm_param.n_particles=100;

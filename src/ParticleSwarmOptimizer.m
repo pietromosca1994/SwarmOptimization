@@ -17,7 +17,7 @@ function [gbest_x, gbest_y, log]=ParticleSwarmOptimizer(fun, swarm, topology, n_
     % Algorithm
     while i<n_iter
 
-        topology.update_position(swarm, fun);
+        topology.update_position(swarm, alg_param, fun);
         topology.update_velocity(swarm, alg_param);
         topology.update_best(swarm);
         

@@ -42,9 +42,9 @@ classdef topology<handle
         
         %% Update position
         % swarm: swarm object
-        function update_position(obj, swarm, fun)
+        function update_position(obj, swarm, alg_param, fun)
             % Update swarm position based on velocity
-            swarm.x=swarm.x+swarm.v;
+            swarm.x=swarm.x+alg_param.lr*swarm.v;
             % Update swarm personal cost
             % possibility of eliminating for loop for improved performance
             for i=1:swarm.n_particles

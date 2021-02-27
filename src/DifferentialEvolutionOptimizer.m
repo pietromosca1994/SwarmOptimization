@@ -5,10 +5,13 @@
 %% Reference: Kennedy, J.; Eberhart, R. (1995). "Particle Swarm Optimization". Proceedings of IEEE International Conference on Neural Networks. IV. pp. 1942–1948.
 
 %% Arguments
-%%
-%%
-%%
-%%
+% fun:     function handle
+% n_iter   int          iterations limit
+% domain   struct(fields: hi, lo)   search domain
+% swarm_param   struct(fields: n_particles, dimensions, sampling_method)
+% alg_param     struct(fields: w, c1, c2)
+% verbose 	 	verbosity mode switch
+% log_active 	log active flag
 
 function [gbest_x, gbest_y, log]=DifferentialEvolutionOptimizer(fun, swarm, topology, n_iter, domain, alg_param, verbose, log_active)
   i=1;

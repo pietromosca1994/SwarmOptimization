@@ -9,7 +9,9 @@
 % n_iter   int          iterations limit
 % domain   struct(fields: hi, lo)   search domain
 % swarm_param   struct(fields: n_particles, dimensions, sampling_method)
-% alg_param     struct(fields: w, c1, c2)
+% alg_param     struct(fields: CR, F)
+% verbose 	 	verbosity mode switch
+% log_active 	log active flag
 
 function [gbest_x, gbest_y, log]=ParticleSwarmOptimizer(fun, swarm, topology, n_iter, domain, alg_param, verbose, log_active) 
     i=1;

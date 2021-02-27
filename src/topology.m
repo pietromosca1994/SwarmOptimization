@@ -48,7 +48,7 @@ classdef topology<handle
               end
             end
             
-            %% 
+            %% DifferentialEvolution update
             if strcmp(obj.algorithm, 'DifferentialEvolution')
               n=3; % random of random particles
               for i=1:swarm.n_particles
@@ -56,15 +56,16 @@ classdef topology<handle
                 n_random=obj.picknrandom(swarm, i, n);
                 R=randi(swarm.dimensions);
                 r=rand(1,swarm.dimensions);
-                mask=logical((r<alg_param.CR | [1:swarm.dimensions]==R));
+                
+                update_mask=logical((r<alg_param.CR | [1:swarm.dimensions]==R));
                 % Update swarm position
-                t_swarm_x(mask)=n_random(1,mask)+alg_param.F*(n_random(2,mask)-n_random(3,mask));
-                t_swarm_x(not(mask))=swarm.x(i, not(mask));
+                t_swarm_x(update_mask)=n_random(1,update_mask)+alg_param.F*(n_random(2,update_mask)-n_random(3,update_mask)); % temporary swarm x
+                t_swarm_x(not(update_mask))=swarm.x(i, not(update_mask));
                 
                 
-                t_swarm_y=fun(t_swarm_x);
+                t_swarm_y=fun(t_swarm_x); % temporary swarm y
                 
-                if t_swarm_y<swarm.y(i)
+                if t_swarm_y<swarm.y(i) % in case the function evaluation is lower than original
                   % Update swarm personal cost 
                   % possibility of eliminating for loop for improved performance
                   swarm.y(i)=t_swarm_y;

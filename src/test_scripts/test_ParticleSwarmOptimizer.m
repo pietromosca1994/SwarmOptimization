@@ -17,14 +17,16 @@ log_active=true;
 fun=@rosenbrock;
 
 % domain defintion
-domain.hi=[1,1];
-domain.lo=[-1,-1];
+domain.hi=[2,3];
+domain.lo=[-1.5,-0.5];
 
 % Algorithm Parameter Definition
-alg_param.w=0.1;        % velocity associated parameter
-alg_param.c1=0.5;       % personal best position coefficient
-alg_param.c2=0.2;       % global best position coefficient
-alg_param.lr=1;         % learning rate
+alg_param.algorithm='ParticleSwarm';  % algorithm used for update           
+alg_param.w=0.1;                      % velocity associated parameter
+alg_param.c1=0.5;                     % personal best position coefficient
+alg_param.c2=0.2;                     % global best position coefficient
+alg_param.lr=1;                       % learning rate
+
 
 % Swarm Parameters Definition
 swarm_param.n_particles=100;
@@ -37,6 +39,7 @@ swarm.init(swarm_param.n_particles, swarm_param.dimensions, swarm_param.sampling
 
 % Topology initilization
 topology=topology;
+topology.init(alg_param.algorithm);
 
 [gbest_x, gbest_y, log]=ParticleSwarmOptimizer(fun, swarm, topology, n_iter, domain, alg_param, verbose, log_active);
 disp(['X_best', num2str(gbest_x)]);

@@ -19,8 +19,10 @@ function [gbest_x, gbest_y, log]=ParticleSwarmOptimizer(fun, swarm, topology, n_
 
         topology.update_position(swarm, alg_param, fun);
         topology.update_velocity(swarm, alg_param);
-        topology.update_best(swarm);
+        topology.update_gbest(swarm);
+        topology.update_pbest(swarm);
         
+        % verbose
         if verbose>0
             if rem(i, verbose)==0
                 figure('Name', ['Step', num2str(i)]);
@@ -28,10 +30,16 @@ function [gbest_x, gbest_y, log]=ParticleSwarmOptimizer(fun, swarm, topology, n_
             end
         end
         
+        % log 
         if log_active==true
             log.gbest_x(i, :)=swarm.gbest_x;
             log.gbest_y(i)=swarm.gbest_y;
+            
+        else
+            log.gbest_x=[];
+            log.gbest_y=[];
         end
+    
         i=i+1;
     end
     

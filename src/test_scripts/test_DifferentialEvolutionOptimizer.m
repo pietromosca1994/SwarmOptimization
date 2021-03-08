@@ -9,7 +9,6 @@ addpath('../benchmark_functions');
 addpath('../');
     
 %% Input definition
-n_iter=50;
 verbose=10;
 log_active=true;
 
@@ -26,7 +25,8 @@ domain.lo=[-1.5,-0.5];
 % domain.lo=[1,1];
 
 % Algorithm Parameter Definition
-alg_param.algorithm='DifferentialEvolution';  % algorithm used for update    
+alg_param.algorithm='DifferentialEvolution';  % algorithm used for update
+alg_param.n_iter=50;                          % float    number of iterations
 alg_param.CR=0.9;                             % float    Crossover Probability [0,1]
 alg_param.F=0.8;                              % float    differential weight [0,2]
 
@@ -43,7 +43,7 @@ swarm.init(swarm_param.n_particles, swarm_param.dimensions, swarm_param.sampling
 topology=topology;
 topology.init(alg_param.algorithm);
 
-[gbest_x, gbest_y, log]=DifferentialEvolutionOptimizer(fun, swarm, topology, n_iter, domain, alg_param, verbose, log_active);
+[gbest_x, gbest_y, log]=DifferentialEvolutionOptimizer(fun, swarm, topology, domain, alg_param, verbose, log_active);
 disp(['X_best', num2str(gbest_x)]);
 disp(['Y_best', num2str(gbest_y)]);
 

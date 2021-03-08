@@ -27,11 +27,11 @@ domain.lo=[-1.5,-0.5];
 
 % Algorithm Parameter Definition
 alg_param.algorithm='ParticleSwarm';  % algorithm used for update           
+alg_param.n_iter=50;                  % float    number of iterations
 alg_param.w=0.1;                      % velocity associated parameter
 alg_param.c1=0.5;                     % personal best position coefficient
 alg_param.c2=0.2;                     % global best position coefficient
 alg_param.lr=1;                       % learning rate
-
 
 % Swarm Parameters Definition
 swarm_param.n_particles=100;

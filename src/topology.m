@@ -61,10 +61,10 @@ classdef topology<handle
               for i=1:swarm.n_particles
                 % Update process initialization
                 n_random=obj.picknrandom(swarm, i, n);
-                R=randi(swarm.dimensions);
-                r=rand(1,swarm.dimensions);
+                R=randi(swarm.n_dimensions);
+                r=rand(1,swarm.n_dimensions);
                 
-                update_mask=logical((r<alg_param.CR | [1:swarm.dimensions]==R));
+                update_mask=logical((r<alg_param.CR | [1:swarm.n_dimensions]==R));
                 % Update swarm position
                 t_swarm_x(update_mask)=n_random(1,update_mask)+alg_param.F*(n_random(2,update_mask)-n_random(3,update_mask)); % temporary swarm x
                 t_swarm_x(not(update_mask))=swarm.x(i, not(update_mask));

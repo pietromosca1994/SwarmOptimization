@@ -13,11 +13,11 @@
 % verbose 	 	verbosity mode switch
 % log_active 	log active flag
 
-function [gbest_x, gbest_y, log]=ParticleSwarmOptimizer(fun, swarm, topology, n_iter, domain, alg_param, verbose, log_active) 
+function [gbest_x, gbest_y, log]=ParticleSwarmOptimizer(fun, swarm, topology, domain, alg_param, verbose, log_active) 
     i=1;
     
     % Algorithm
-    while i<n_iter
+    while i<alg_param.n_iter
 
         topology.update_position(swarm, alg_param, fun);
         topology.update_velocity(swarm, alg_param);

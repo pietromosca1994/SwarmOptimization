@@ -13,12 +13,12 @@
 % verbose 	 	verbosity mode switch
 % log_active 	log active flag
 
-function [gbest_x, gbest_y, log]=DifferentialEvolutionOptimizer(fun, swarm, topology, n_iter, domain, alg_param, verbose, log_active)
+function [gbest_x, gbest_y, log]=DifferentialEvolutionOptimizer(fun, swarm, topology, domain, alg_param, verbose, log_active)
   i=1;
   
   % check that number of particles it at least 4  
   
-  while i<n_iter
+  while i<alg_param.n_iter
      
      topology.update_position(swarm, alg_param, fun);
      topology.update_gbest(swarm);   

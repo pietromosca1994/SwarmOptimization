@@ -8,10 +8,10 @@ classdef swarm<handle
         x;              % array(n_particles, n_dimensions)                  position-matrix at a single timestep  
         v;              % array(n_particles, n_dimensions)                  velocity-matrix at a single timestep
         n_particles;    % int                                               number of particles in the population
-        dimensions;     % int                                               number of dimensions
+        n_dimensions;     % int                                               number of n_dimensions
         options;        % struct                                            options that govern the swarm behaviour
         pbest_x;        % array(n_particles, n_dimensions)                  personal best positions of each particle
-        gbest_x;        % array(dimensions, particles)(for star topology) (dimensions,) for other topologies  best position found by the swarm
+        gbest_x;        % array(n_dimensions, particles)(for star topology) (n_dimensions,) for other topologies  best position found by the swarm
         pbest_y;        % array(n_particles, n_dimensions)                  personal best cost of each of the particles   
         gbest_y;        % float                                             best cost found by the swarm
         y;              % array(n_particles)                                current cost found by the swarm
@@ -33,44 +33,44 @@ classdef swarm<handle
             
             % Initialize particle positions
             obj.n_particles=n_particles;
-            obj.dimensions=n_dimensions;
+            obj.n_dimensions=n_dimensions;
             obj.x_domain=x_domain;
             
             if strcmp(sampling_method, 'Uniform')
                 % xi ~ U(blo, bup) where U Uniform Distribution
-                obj.x=(obj.x_domain.hi-obj.x_domain.lo).*rand(obj.n_particles, obj.dimensions)+obj.x_domain.lo;
+                obj.x=(obj.x_domain.hi-obj.x_domain.lo).*rand(obj.n_particles, obj.n_dimensions)+obj.x_domain.lo;
             elseif strcmp(sampling_method, 'Normal')
-                obj.x=(obj.x_domain.hi-obj.x_domain.lo).*randn(obj.n_particles, obj.dimensions)+obj.x_domain.lo;
+                obj.x=(obj.x_domain.hi-obj.x_domain.lo).*randn(obj.n_particles, obj.n_dimensions)+obj.x_domain.lo;
             elseif strcmp(sampling_method, 'Cauchy')
                 % Generate Cauchy Random Numbers Using Student's (needs
                 % Statistics and Machine Learning Toolbox)
-                %obj.x=(domain.hi-domain.lo).*trnd(1,obj.n_particles, obj.dimensions)+domain.lo;
+                %obj.x=(domain.hi-domain.lo).*trnd(1,obj.n_particles, obj.n_dimensions)+domain.lo;
                 
                 % using CDF
                 % (https://en.wikipedia.org/wiki/Cauchy_distribution)
                 location=0;
                 scale=1;
-                obj.x=location+scale.*tan(pi.*(rand(obj.n_particles, obj.dimensions)-0.5));
+                obj.x=location+scale.*tan(pi.*(rand(obj.n_particles, obj.n_dimensions)-0.5));
                 
                 % using the property that the ratio of two Normal
                 % distributions is Cauchy distributed
                 % (https://math.stackexchange.com/questions/484395/how-to-generate-a-cauchy-random-variable)
-                %obj.x=(domain.hi-domain.lo).*randn(obj.n_particles, obj.dimensions)./randn(obj.n_particles, obj.dimensions)+domain.lo;
+                %obj.x=(domain.hi-domain.lo).*randn(obj.n_particles, obj.n_dimensions)./randn(obj.n_particles, obj.n_dimensions)+domain.lo;
             end
             
             % Initialize particles costs 
             % possibility of eliminating for loop for improved performance
             % with broadcasting
-            obj.y=zeros(1, n_particles);
-            for i=1:n_particles
+            obj.y=zeros(1, obj.n_particles);
+            for i=1:obj.n_particles
                 obj.y(i)=fun(obj.x(i,:));
             end    
             
             % Initialize velocity
             % vi ~ U(-|bup-blo|, |bup-blo|) where U uniform distribution
-            v_domain.hi=abs(x_domain.hi-x_domain.lo);
+            v_domain.hi=abs(obj.x_domain.hi-obj.x_domain.lo);
             v_domain.lo=-v_domain.hi;
-            obj.v=(v_domain.hi-v_domain.lo).*rand(obj.n_particles, obj.dimensions)+v_domain.lo;
+            obj.v=(v_domain.hi-v_domain.lo).*rand(obj.n_particles, obj.n_dimensions)+v_domain.lo;
             
             % Initialize particles personal best positions and cost
             obj.pbest_x=obj.x;

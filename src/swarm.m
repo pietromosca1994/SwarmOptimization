@@ -11,10 +11,10 @@ classdef swarm<handle
         dimensions;     % int                               number of dimensions
         options;        % struct                            options that govern the swarm behaviour
         pbest_x;        % array(n_particles, dimensions)    personal best positions of each particle
-        gbest_x;         % array(dimensions, particles)(for star topology) (dimensions,) for other topologies  best position found by the swarm
+        gbest_x;        % array(dimensions, particles)(for star topology) (dimensions,) for other topologies  best position found by the swarm
         pbest_y;        % array(n_particles, dimensions)    personal best cost of each of the particles   
         gbest_y;        % float                             best cost found by the swarm
-        y;              % array(n_particles, dimensions)    current cost found by the swarm
+        y;              % array(n_particles)                current cost found by the swarm
     end
     
     methods
@@ -26,11 +26,11 @@ classdef swarm<handle
         % domain:           struct with fields hi, lo
         % 
         
-        function init(obj, n_particles, dimensions, sampling_method, x_domain, fun)
+        function init(obj, n_particles, n_dimensions, sampling_method, x_domain, fun)
             
             % Initialize particle positions
             obj.n_particles=n_particles;
-            obj.dimensions=dimensions;
+            obj.dimensions=n_dimensions;
                         
             if strcmp(sampling_method, 'Uniform')
                 % xi ~ U(blo, bup) where U Uniform Distribution
@@ -61,7 +61,7 @@ classdef swarm<handle
                 obj.y(i)=fun(obj.x(i,:));
             end    
             
-            % Initilize velocity
+            % Initialize velocity
             % vi ~ U(-|bup-blo|, |bup-blo|) where U uniform distribution
             v_domain.hi=abs(x_domain.hi-x_domain.lo);
             v_domain.lo=-v_domain.hi;
@@ -127,6 +127,7 @@ classdef swarm<handle
             xlim([domain.lo(1)+domain.lo(1)*0.1, domain.hi(1)+domain.hi(1)*0.1]);
             ylim([domain.lo(2)+domain.lo(2)*0.1, domain.hi(2)+domain.hi(2)*0.1]);
             zlabel('y');
+            set(gcf,'color','w');
            
          end
     end

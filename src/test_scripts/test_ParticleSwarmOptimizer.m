@@ -30,12 +30,12 @@ alg_param.lr=1;                       % learning rate
 
 % Swarm Parameters Definition
 swarm_param.n_particles=100;
-swarm_param.dimensions=2;
+swarm_param.n_dimensions=2;
 swarm_param.sampling_method='Uniform';
 
 % Swarm Initilaization
 swarm=swarm;
-swarm.init(swarm_param.n_particles, swarm_param.dimensions, swarm_param.sampling_method, domain, fun);
+swarm.init(swarm_param.n_particles, swarm_param.n_dimensions, swarm_param.sampling_method, domain, fun);
 
 % Topology initilization
 topology=topology;
@@ -47,3 +47,6 @@ disp(['Y_best', num2str(gbest_y)]);
 
 figure()
 plot(log.gbest_y);
+xlabel('Steps')
+ylabel('Best Cost')
+set(gcf,'color','w');

@@ -21,7 +21,10 @@ classdef topology<handle
             opt=min(swarm.y);
             if opt<swarm.gbest_y
                 swarm.gbest_y=opt;
-                swarm.gbest_x=swarm.x(swarm.y==opt,:);
+                % in case multiple points are in an optimal, select one
+                % randomly
+                x_opt=swarm.x(swarm.y==opt,:);
+                swarm.gbest_x=x_opt(randi(size(x_opt,1)),:);
             end
         end
         
@@ -43,6 +46,10 @@ classdef topology<handle
               swarm.x=swarm.x+alg_param.lr*swarm.v;
               % Update swarm personal cost
               % possibility of eliminating for loop for improved performance
+              
+              % Clip swarm position
+              obj.SwarmXClip(swarm);
+              
               for i=1:swarm.n_particles
                   swarm.y(i)=fun(swarm.x(i,:));
               end
@@ -62,6 +69,8 @@ classdef topology<handle
                 t_swarm_x(update_mask)=n_random(1,update_mask)+alg_param.F*(n_random(2,update_mask)-n_random(3,update_mask)); % temporary swarm x
                 t_swarm_x(not(update_mask))=swarm.x(i, not(update_mask));
                 
+                % Clip swarm position
+                obj.SwarmXClip(swarm);
                 
                 t_swarm_y=fun(t_swarm_x); % temporary swarm y
                 
@@ -76,8 +85,9 @@ classdef topology<handle
                   % update personal best y
                   swarm.pbest_x(i, :)=t_swarm_x;   
                 end
-                
+          
               end
+              
             end           
             
         end
@@ -105,6 +115,16 @@ classdef topology<handle
           n_random=t_swarm_x(randi(swarm.n_particles-1, 1, n),:);
 
         end
+        
+        %% Function to keep the particles in the optimization domain
+        % swarm       swarm object          
+        function SwarmXClip(obj, swarm)
+            % Hi-bound clipping
+            swarm.x=min(swarm.x, swarm.x_domain.hi);
+            % Lo-bound clipping
+            swarm.x=max(swarm.x, swarm.x_domain.lo);
+        end
+        
         
     end % end of methods
    

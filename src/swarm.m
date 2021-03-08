@@ -5,16 +5,19 @@
 
 classdef swarm<handle
     properties
-        x;              % array(n_particles, dimensions)    position-matrix at a single timestep  
-        v;              % array(n_particles, dimensions)    velocity-matrix at a single timestep
-        n_particles;    % int                               number of particles in the population
-        dimensions;     % int                               number of dimensions
-        options;        % struct                            options that govern the swarm behaviour
-        pbest_x;        % array(n_particles, dimensions)    personal best positions of each particle
+        x;              % array(n_particles, n_dimensions)                  position-matrix at a single timestep  
+        v;              % array(n_particles, n_dimensions)                  velocity-matrix at a single timestep
+        n_particles;    % int                                               number of particles in the population
+        dimensions;     % int                                               number of dimensions
+        options;        % struct                                            options that govern the swarm behaviour
+        pbest_x;        % array(n_particles, n_dimensions)                  personal best positions of each particle
         gbest_x;        % array(dimensions, particles)(for star topology) (dimensions,) for other topologies  best position found by the swarm
-        pbest_y;        % array(n_particles, dimensions)    personal best cost of each of the particles   
-        gbest_y;        % float                             best cost found by the swarm
-        y;              % array(n_particles)                current cost found by the swarm
+        pbest_y;        % array(n_particles, n_dimensions)                  personal best cost of each of the particles   
+        gbest_y;        % float                                             best cost found by the swarm
+        y;              % array(n_particles)                                current cost found by the swarm
+        x_domain        % struct                                            generation domain
+                        % with fields:     hi array(1, n_dimensions)
+                        %                  lo array(1, n_dimensions)
     end
     
     methods
@@ -31,12 +34,13 @@ classdef swarm<handle
             % Initialize particle positions
             obj.n_particles=n_particles;
             obj.dimensions=n_dimensions;
-                        
+            obj.x_domain=x_domain;
+            
             if strcmp(sampling_method, 'Uniform')
                 % xi ~ U(blo, bup) where U Uniform Distribution
-                obj.x=(x_domain.hi-x_domain.lo).*rand(obj.n_particles, obj.dimensions)+x_domain.lo;
+                obj.x=(obj.x_domain.hi-obj.x_domain.lo).*rand(obj.n_particles, obj.dimensions)+obj.x_domain.lo;
             elseif strcmp(sampling_method, 'Normal')
-                obj.x=(x_domain.hi-x_domain.lo).*randn(obj.n_particles, obj.dimensions)+x_domain.lo;
+                obj.x=(obj.x_domain.hi-obj.x_domain.lo).*randn(obj.n_particles, obj.dimensions)+obj.x_domain.lo;
             elseif strcmp(sampling_method, 'Cauchy')
                 % Generate Cauchy Random Numbers Using Student's (needs
                 % Statistics and Machine Learning Toolbox)
@@ -57,6 +61,7 @@ classdef swarm<handle
             % Initialize particles costs 
             % possibility of eliminating for loop for improved performance
             % with broadcasting
+            obj.y=zeros(1, n_particles);
             for i=1:n_particles
                 obj.y(i)=fun(obj.x(i,:));
             end    
@@ -87,8 +92,8 @@ classdef swarm<handle
             
             xlabel('x_1');
             ylabel('x_2');
-            xlim([domain.lo(1)+domain.lo(1)*0.1, domain.hi(1)+domain.hi(1)*0.1]);
-            ylim([domain.lo(2)+domain.lo(2)*0.1, domain.hi(2)+domain.hi(2)*0.1]);
+            xlim([domain.lo(1)-domain.lo(1)*0.1, domain.hi(1)+domain.hi(1)*0.1]);
+            ylim([domain.lo(2)-domain.lo(2)*0.1, domain.hi(2)+domain.hi(2)*0.1]);
             
             hold on;
             
@@ -99,7 +104,7 @@ classdef swarm<handle
             subplot(1,2,2)
             % plot particle position
             
-            % suface computation 
+            % surface computation 
             res=25; % grid resolution
             %x_axis=linspace(min(obj.x(:,1)), max(obj.x(:,1)), res);
             %y_axis=linspace(min(obj.x(:,2)), max(obj.x(:,2)), res);
@@ -107,6 +112,7 @@ classdef swarm<handle
             x_axis=linspace(domain.lo(1), domain.hi(2), res);
             y_axis=linspace(domain.lo(2), domain.hi(2), res);
             
+            Z=zeros(res);
             for i=1:res
                 for j=1:res
                     Z(i,j)=fun([x_axis(i), y_axis(j)]);
@@ -124,8 +130,8 @@ classdef swarm<handle
            
             xlabel('x_1');
             ylabel('x_2');
-            xlim([domain.lo(1)+domain.lo(1)*0.1, domain.hi(1)+domain.hi(1)*0.1]);
-            ylim([domain.lo(2)+domain.lo(2)*0.1, domain.hi(2)+domain.hi(2)*0.1]);
+            xlim([domain.lo(1)-domain.lo(1)*0.1, domain.hi(1)+domain.hi(1)*0.1]);
+            ylim([domain.lo(2)-domain.lo(2)*0.1, domain.hi(2)+domain.hi(2)*0.1]);
             zlabel('y');
             set(gcf,'color','w');
            

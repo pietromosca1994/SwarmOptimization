@@ -16,9 +16,14 @@ log_active=true;
 % Objective Function
 fun=@rosenbrock;
 
-% domain defintion
+% domain definition
+% for Rosenbrock
 domain.hi=[2,3];
 domain.lo=[-1.5,-0.5];
+
+% for Sphere
+% domain.hi=[2,2];
+% domain.lo=[1,1];
 
 % Algorithm Parameter Definition
 alg_param.algorithm='DifferentialEvolution';  % algorithm used for update    

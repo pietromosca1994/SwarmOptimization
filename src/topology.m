@@ -46,9 +46,12 @@ classdef topology<handle
               swarm.x=swarm.x+alg_param.lr*swarm.v;
               % Update swarm personal cost
               % possibility of eliminating for loop for improved performance
-              
-              % Clip swarm position
-              obj.SwarmXClip(swarm);
+             
+			% Clip swarm position
+			% Hi-bound clipping
+            swarm.x=min(swarm.x, swarm.x_domain.hi);
+            % Lo-bound clipping
+            swarm.x=max(swarm.x, swarm.x_domain.lo);
               
               for i=1:swarm.n_particles
                   swarm.y(i)=fun(swarm.x(i,:));
@@ -70,7 +73,10 @@ classdef topology<handle
                 t_swarm_x(not(update_mask))=swarm.x(i, not(update_mask));
                 
                 % Clip swarm position
-                obj.SwarmXClip(swarm);
+                % Hi-bound clipping
+                t_swarm_x=min(t_swarm_x, swarm.x_domain.hi);
+                % Lo-bound clipping
+                t_swarm_x=max(t_swarm_x, swarm.x_domain.lo);
                 
                 t_swarm_y=fun(t_swarm_x); % temporary swarm y
                 

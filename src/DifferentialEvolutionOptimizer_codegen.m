@@ -96,13 +96,9 @@ function [X_opt, y_opt]=DifferentialEvolutionOptimizer_codegen(alg_param, swarm_
 
             % Clip swarm position
             % Hi-bound clipping
-            for j=1:swarm_n_particles
-                swarm_x(j,:)=min(swarm_x(j,:), swarm_x_domain.hi);
-            end
+            t_swarm_x=min(t_swarm_x, swarm_x_domain.hi);
             % Lo-bound clipping
-            for j=1:swarm_n_particles
-                swarm_x(j,:)=max(swarm_x(j,:), swarm_x_domain.lo);
-            end
+            t_swarm_x=max(t_swarm_x, swarm_x_domain.lo);
             
             t_swarm_y=sphere(t_swarm_x); % temporary swarm y
 

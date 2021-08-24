@@ -6,7 +6,6 @@
 
 % Arguments
 % fun:     function handle
-% n_iter   int          iterations limit
 % domain   struct(fields: hi, lo)   search domain
 % swarm_param   struct(fields: n_particles, dimensions, sampling_method)
 % alg_param     struct(fields: CR, F)

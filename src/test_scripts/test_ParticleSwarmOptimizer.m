@@ -9,8 +9,7 @@ addpath('../benchmark_functions');
 addpath('../');
     
 %% Input definition
-n_iter=10;
-verbose=1;
+verbose=10;
 log_active=true;
 
 % Objective Function
@@ -46,7 +45,7 @@ swarm.init(swarm_param.n_particles, swarm_param.n_dimensions, swarm_param.sampli
 topology=topology;
 topology.init(alg_param.algorithm);
 
-[gbest_x, gbest_y, log]=ParticleSwarmOptimizer(fun, swarm, topology, n_iter, domain, alg_param, verbose, log_active);
+[gbest_x, gbest_y, log]=ParticleSwarmOptimizer(fun, swarm, topology, domain, alg_param, verbose, log_active);
 disp(['X_best', num2str(gbest_x)]);
 disp(['Y_best', num2str(gbest_y)]);
 

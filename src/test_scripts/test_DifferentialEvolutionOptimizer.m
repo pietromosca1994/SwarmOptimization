@@ -9,7 +9,7 @@ addpath('../benchmark_functions');
 addpath('../');
     
 %% Input definition
-verbose=10;
+verbose=100;
 log_active=true;
 
 % Objective Function

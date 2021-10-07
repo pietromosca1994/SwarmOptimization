@@ -18,7 +18,7 @@ function [gbest_x, gbest_y, log]=DifferentialEvolutionOptimizer(fun, swarm, topo
   
   % check that number of particles it at least 4  
   
-  while i<alg_param.n_iter
+  while i<=alg_param.n_iter
      
      topology.update_position(swarm, alg_param, fun);
      topology.update_gbest(swarm);   

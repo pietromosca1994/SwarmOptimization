@@ -85,7 +85,7 @@ classdef swarm<handle
         %% plot current particle scatter distribution
         % obj
         function plot(obj, fun, domain)
-            res=25; % grid resolution
+            res=50; % grid resolution
 
             %% 2D optimization plot
             if size(obj.x, 2)==1
@@ -104,7 +104,7 @@ classdef swarm<handle
                 ylabel('y');
             
             %% 3D optimization plot
-            elseif size(obj.x, 1)==2
+            elseif size(obj.x, 2)==2
             % 2D particle visualization
             subplot(1,2,1);
 
@@ -155,8 +155,30 @@ classdef swarm<handle
             set(gcf,'color','w');
             
             else
-                warning('[WARNING] Not possible to plot optimization');
-            end
+            %% n-D optimization plot
+                for dim=1:size(obj.x, 2)
+                    subplot(1, size(obj.x, 2), dim)
+                    x_axis=linspace(domain.lo(dim), domain.hi(dim), res);
+
+
+                    for j=1:size(obj.x, 2)
+                        input(j)=obj.gbest_x(:,j);
+                    end
+
+                    % compute the function
+                    for i=1:res
+                        input(dim)=x_axis(i);
+                        Z(i)=fun(input);
+                    end
+
+                    plot(x_axis, Z);
+                    hold on;
+                    scatter(obj.x(:, dim), obj.y, 'filled'); 
+                    xlabel(['x_' num2str(dim)]);
+                    ylabel('y');
+
+                end
+           end
     
          end
     end

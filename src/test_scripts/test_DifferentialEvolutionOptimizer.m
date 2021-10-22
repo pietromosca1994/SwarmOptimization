@@ -9,7 +9,7 @@ addpath('../benchmark_functions');
 addpath('../');
     
 %% Input definition
-verbose=100;
+verbose=10;
 log_active=true;
 
 % Objective Function
@@ -20,22 +20,22 @@ fun=@rosenbrock;
 % domain.hi=[2, 3];
 % domain.lo=[-1.5, -0.5];
 
-domain.hi=[2, 3, 3];
-domain.lo=[-1.5, -0.5, -1.5];
+domain.hi=[2, 3, 3, 3];
+domain.lo=[-1.5, -0.5, -1.5, -1.5];
 
-% for Sphere
+% for Sphere 
 % domain.hi=[2,2];
 % domain.lo=[1,1];
 
 % Algorithm Parameter Definition
 alg_param.algorithm='DifferentialEvolution';  % algorithm used for update
-alg_param.n_iter=100;                          % float    number of iterations
+alg_param.n_iter=100;                         % float    number of iterations
 alg_param.CR=0.9;                             % float    Crossover Probability [0,1]
 alg_param.F=0.8;                              % float    differential weight [0,2]
 
 % Swarm Parameters Definition
-swarm_param.n_particles=20;
-swarm_param.dimensions=3;
+swarm_param.n_particles=100;
+swarm_param.dimensions=numel(domain.hi);
 swarm_param.sampling_method='Uniform';
 
 % Swarm Initilaization

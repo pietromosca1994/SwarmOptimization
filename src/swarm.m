@@ -8,7 +8,7 @@ classdef swarm<handle
         x;              % array(n_particles, n_dimensions)                  position-matrix at a single timestep  
         v;              % array(n_particles, n_dimensions)                  velocity-matrix at a single timestep
         n_particles;    % int                                               number of particles in the population
-        n_dimensions;     % int                                               number of n_dimensions
+        n_dimensions;   % int                                               number of n_dimensions
         options;        % struct                                            options that govern the swarm behaviour
         pbest_x;        % array(n_particles, n_dimensions)                  personal best positions of each particle
         gbest_x;        % array(n_dimensions, particles)(for star topology) (n_dimensions,) for other topologies  best position found by the swarm

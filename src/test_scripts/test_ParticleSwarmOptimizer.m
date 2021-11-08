@@ -17,8 +17,8 @@ fun=@rosenbrock;
 
 % domain definition
 % for Rosenbrock
-domain.hi=[2,3];
-domain.lo=[-1.5,-0.5];
+domain.hi=[2 3];
+domain.lo=[-1.5 -0.5];
 
 % for Sphere
 % domain.hi=[2,2];
@@ -34,12 +34,11 @@ alg_param.lr=1;                       % learning rate
 
 % Swarm Parameters Definition
 swarm_param.n_particles=100;
-swarm_param.n_dimensions=2;
 swarm_param.sampling_method='Uniform';
 
 % Swarm Initilaization
 swarm=swarm;
-swarm.init(swarm_param.n_particles, swarm_param.n_dimensions, swarm_param.sampling_method, domain, fun);
+swarm.init(swarm_param.n_particles, swarm_param.sampling_method, domain, fun);
 
 % Topology initilization
 topology=topology;

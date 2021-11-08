@@ -35,7 +35,6 @@ alg_param.F=0.8;                              % float    differential weight [0,
 
 % Swarm Parameters Definition
 swarm_param.n_particles=100;
-swarm_param.dimensions=numel(domain.hi);
 swarm_param.sampling_method='Uniform';
 
 % Swarm Initilaization

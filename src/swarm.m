@@ -29,13 +29,17 @@ classdef swarm<handle
         % domain:           struct with fields hi, lo
         % 
         
-        function init(obj, n_particles, n_dimensions, sampling_method, x_domain, fun)
+        function init(obj, n_particles, sampling_method, x_domain, fun)
             
             % Initialize particle positions
             obj.n_particles=n_particles;
-            obj.n_dimensions=n_dimensions;
             obj.x_domain=x_domain;
-            
+            if numel(obj.x_domain.hi)==numel(obj.x_domain.lo)
+                obj.n_dimensions=numel(obj.x_domain.hi);
+            else
+                error('[ERROR] Size of domain.hi must be same as size of domain.lo');
+            end
+                        
             if strcmp(sampling_method, 'Uniform')
                 % xi ~ U(blo, bup) where U Uniform Distribution
                 obj.x=(obj.x_domain.hi-obj.x_domain.lo).*rand(obj.n_particles, obj.n_dimensions)+obj.x_domain.lo;
@@ -98,35 +102,13 @@ classdef swarm<handle
                 
                 plot(x_axis, Z);
                 hold on;
-                scatter(obj.x, obj.y, 'filled');
+                scatter(obj.x, obj.y, 'filled', 'MarkerFaceColor', '#D95319');
                 
                 xlabel('x');
                 ylabel('y');
             
             %% 3D optimization plot
             elseif size(obj.x, 2)==2
-            % 2D particle visualization
-            subplot(1,2,1);
-
-            scatter(obj.x(:, 1), obj.x(:, 2));  
-            
-            xlabel('x_1');
-            ylabel('x_2');
-            xlim([domain.lo(1)-domain.lo(1)*0.1, domain.hi(1)+domain.hi(1)*0.1]);
-            ylim([domain.lo(2)-domain.lo(2)*0.1, domain.hi(2)+domain.hi(2)*0.1]);
-            
-            hold on;
-            
-            % plot velocity vector field
-            quiver(obj.x(:, 1), obj.x(:, 2), obj.v(:,1), obj.v(:,2));
-            
-            % 3D particle visualization
-            subplot(1,2,2)
-            % plot particle position
-            
-            % surface computation 
-            %x_axis=linspace(min(obj.x(:,1)), max(obj.x(:,1)), res);
-            %y_axis=linspace(min(obj.x(:,2)), max(obj.x(:,2)), res);
             
             x_axis=linspace(domain.lo(1), domain.hi(1), res);
             y_axis=linspace(domain.lo(2), domain.hi(2), res);
@@ -138,11 +120,38 @@ classdef swarm<handle
                 end 
             end
             
+                
+            % 2D particle visualization
+            subplot(1,2,1);
+            
+            contourf(x_axis, y_axis, Z');
+            hold on
+            scatter(obj.x(:, 1), obj.x(:, 2), 'filled', 'MarkerFaceColor', '#D95319');  
+
+            xlabel('x_1');
+            ylabel('x_2');
+%             xlim([domain.lo(1)-domain.lo(1)*0.1, domain.hi(1)+domain.hi(1)*0.1]);
+%             ylim([domain.lo(2)-domain.lo(2)*0.1, domain.hi(2)+domain.hi(2)*0.1]);
+            xlim([domain.lo(1), domain.hi(1)]);
+            ylim([domain.lo(2), domain.hi(2)]);
+
+            hold on;
+            
+            % plot velocity vector field
+            quiver(obj.x(:, 1), obj.x(:, 2), obj.v(:,1), obj.v(:,2));
+            
+            % 3D particle visualization
+            subplot(1,2,2)
+            % plot particle position
+            
+            % surface computation 
+            %x_axis=linspace(min(obj.x(:,1)), max(obj.x(:,1)), res);
+            %y_axis=linspace(min(obj.x(:,2)), max(obj.x(:,2)), res);          
 
             surf(x_axis, y_axis, Z', 'FaceAlpha',0.5);
             % contourf(x_axis, y_axis, Z')
             hold on;
-            scatter3(obj.x(:, 1), obj.x(:, 2), obj.y, 'filled');
+            scatter3(obj.x(:, 1), obj.x(:, 2), obj.y, 'filled', 'MarkerFaceColor', '#D95319');
             % scatter(obj.x(:, 1), obj.x(:, 2));
             % plot velocity vector field
             % quiver(obj.x(:, 1), obj.x(:, 2), obj.v(:,1), obj.v(:,2));
@@ -173,7 +182,7 @@ classdef swarm<handle
 
                     plot(x_axis, Z);
                     hold on;
-                    scatter(obj.x(:, dim), obj.y, 'filled'); 
+                    scatter(obj.x(:, dim), obj.y, 'filled', 'MarkerFaceColor', '#D95319'); 
                     xlabel(['x_' num2str(dim)]);
                     ylabel('y');
 

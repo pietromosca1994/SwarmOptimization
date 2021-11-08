@@ -12,15 +12,22 @@
 %                   with fields     n_particles         float    number of swarm particles 
 %                                   n_dimensions        float    number of swarm dimensions
 %                                   sampling_method     string   sampling method
-%                                   x_domain            struct   swarm defintion domain 
+%                                   x_domain            struct   swarm defintion domain
+% fun arg           struct          
+%                   with fields     states              struct 
+%                                   params              struct
 
-function [X_opt, y_opt]=DifferentialEvolutionOptimizer_codegen(alg_param, swarm_param)  
+function [X_opt, y_opt]=DifferentialEvolutionOptimizer_codegen(alg_param, swarm_param, fun_arg)  
     
     %% swarm initialization
     % Initialize particle positions
     swarm_n_particles=swarm_param.n_particles;
-    swarm_n_dimensions=swarm_param.n_dimensions;
     swarm_x_domain=swarm_param.x_domain;
+    if numel(swarm_x_domain.hi)==numel(swarm_x_domain.lo)
+        swarm_n_dimensions=numel(swarm_x_domain.hi);
+    else
+        error('[ERROR] Size of domain.hi must be same as size of domain.lo');
+    end
     
     swarm_x=zeros(swarm_n_particles, swarm_n_dimensions);
     if strcmp(swarm_param.sampling_method, 'Uniform')
@@ -57,7 +64,7 @@ function [X_opt, y_opt]=DifferentialEvolutionOptimizer_codegen(alg_param, swarm_
     swarm_y=zeros(1, swarm_n_particles);
     
     for i=1:swarm_n_particles
-        swarm_y(i)=sphere(swarm_x(i,:));
+        swarm_y(i)=opt_fun(swarm_x(i,:), fun_arg);
     end    
    
     % Initialize particles personal best positions and cost
@@ -100,7 +107,7 @@ function [X_opt, y_opt]=DifferentialEvolutionOptimizer_codegen(alg_param, swarm_
             % Lo-bound clipping
             t_swarm_x=max(t_swarm_x, swarm_x_domain.lo);
             
-            t_swarm_y=sphere(t_swarm_x); % temporary swarm y
+            t_swarm_y=opt_fun(t_swarm_x, fun_arg); % temporary swarm y
 
             if t_swarm_y<swarm_y(i) % in case the function evaluation is lower than original
               % Update swarm personal cost 
@@ -131,7 +138,7 @@ function [X_opt, y_opt]=DifferentialEvolutionOptimizer_codegen(alg_param, swarm_
         n_iter=n_iter+1;
     end
 
-X_opt=swarm_gbest_x;
+X_opt=reshape(swarm_gbest_x, size(swarm_x_domain.hi));
 y_opt=swarm_gbest_y;
 
 end       

@@ -39,7 +39,7 @@ swarm_param.sampling_method='Uniform';
 
 % Swarm Initilaization
 swarm=swarm;
-swarm.init(swarm_param.n_particles, swarm_param.dimensions, swarm_param.sampling_method, domain, fun);
+swarm.init(swarm_param.n_particles, swarm_param.sampling_method, domain, fun);
 
 % Topology initilization
 topology=topology;

@@ -47,11 +47,11 @@ classdef topology<handle
               % Update swarm personal cost
               % possibility of eliminating for loop for improved performance
              
-			% Clip swarm position
-			% Hi-bound clipping
-            swarm.x=min(swarm.x, swarm.x_domain.hi);
-            % Lo-bound clipping
-            swarm.x=max(swarm.x, swarm.x_domain.lo);
+              % Clip swarm position
+              % Hi-bound clipping
+              swarm.x=min(swarm.x, swarm.x_domain.hi);
+              % Lo-bound clipping
+              swarm.x=max(swarm.x, swarm.x_domain.lo);
               
               for i=1:swarm.n_particles
                   swarm.y(i)=fun(swarm.x(i,:));
@@ -106,8 +106,8 @@ classdef topology<handle
         %                           c2: global best position coefficient 
         function update_velocity(obj, swarm, alg_param)
             swarm.v=alg_param.w*swarm.v+...
-                    rand(1)*alg_param.c1*(swarm.pbest_x-swarm.x)+...
-                    rand(1)*alg_param.c2*(swarm.gbest_x-swarm.x);
+                    alg_param.c1*rand(swarm.n_particles, swarm.n_dimensions).*(swarm.pbest_x-swarm.x)+...
+                    alg_param.c2*rand(swarm.n_particles, swarm.n_dimensions).*(swarm.gbest_x-swarm.x);
         end
         
         %% Pick n random particles different from the i-th particle

@@ -17,7 +17,7 @@ class swarm {
         int n_particles;
         int n_dimensions;
         domain_struct x_domain;
-        domain_struct v_domainl;
+        domain_struct v_domain;
         vector<vector<double>> x;
         vector<double> y;
         vector<vector<double>> v;
@@ -28,6 +28,7 @@ class swarm {
         
         // constructor
         swarm (int _n_particles, domain_struct _x_domain, double (*func)(vector<double>)); // constructor
+        
         // methods
         void clipx();
 };

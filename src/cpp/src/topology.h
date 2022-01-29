@@ -27,7 +27,6 @@ class topology {
     void update_position(swarm &swarm, alg_param_struct alg_param, double (*func)(vector<double>));
     void update_velocity(swarm &swarm, alg_param_struct alg_param);
     void picknrandom(int n);
-    void SwarmXClip(swarm &swarm);
 };
 
 #endif

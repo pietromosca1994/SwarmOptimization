@@ -4,6 +4,7 @@ swarm::swarm ( int _n_particles, domain_struct _x_domain, double (*func)(vector<
     n_particles=_n_particles;
     n_dimensions = _x_domain.hi.size();
     x_domain=_x_domain;
+
     domain_struct v_domain;
 
     x.resize(n_particles, vector<double>(n_dimensions, 0));
@@ -31,8 +32,8 @@ swarm::swarm ( int _n_particles, domain_struct _x_domain, double (*func)(vector<
 
     // initialize v
     subVectors(x_domain.hi, x_domain.lo, v_domain.hi);
-    absVector(x_domain.hi, x_domain.lo);
-    mulVectorScalar(v_domain.hi, v_domain.lo, -1.0);
+    absVector(x_domain.hi, v_domain.hi);
+    mulVectorScalar(v_domain.hi, double(-1.0), v_domain.lo);
     
     for (int i=0; i<n_particles; i++){
         for (int j=0; j<n_dimensions; j++){
@@ -55,11 +56,12 @@ void swarm::clipx(){
             // hi clip 
             if (x[i][j]>x_domain.hi[j]){
                 x[i][j]=x_domain.hi[j];
-            };
+            }
+
             // lo clip
             if (x[i][j]<x_domain.lo[j]){
                 x[i][j]=x_domain.lo[j];
-            };
+            }
         };
     };
 };

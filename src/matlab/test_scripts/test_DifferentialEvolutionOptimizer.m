@@ -21,7 +21,7 @@ fun=@rosenbrock;
 % domain.lo=[-1.5, -0.5];
 
 domain.hi=[2, 3, 3, 3];
-domain.lo=[-1.5, -0.5, -1.5, -1.5];
+domain.lo=[-1.5, -0.5, -1, -1];
 
 % for Sphere 
 % domain.hi=[2,2];

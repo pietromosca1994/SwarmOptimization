@@ -24,7 +24,7 @@ int main(){
     vector<double> gbest_x(int(x_domain.hi.size()), 0);
    
     auto t_start = chrono::high_resolution_clock::now(); // start stopwatch
-    gbest_x=ParticleSwarmOptimizer(&sphere, n_particles, x_domain, alg_param);
+    gbest_x=ParticleSwarmOptimizer(&rosenbrock, n_particles, x_domain, alg_param);
     auto t_end = std::chrono::high_resolution_clock::now(); // stop stopwatch
     double elapsed_time_ms = chrono::duration<double, milli>(t_end-t_start).count();
     // x best

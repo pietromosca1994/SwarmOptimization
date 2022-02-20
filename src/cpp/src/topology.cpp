@@ -1,7 +1,8 @@
 #include "topology.h"
 
-topology::topology (int _algorithm){
-    algorithm=_algorithm;
+topology::topology (int _algorithm): \
+    algorithm(_algorithm)
+{
 };
 
 void topology::update_gbest(swarm &swarm){

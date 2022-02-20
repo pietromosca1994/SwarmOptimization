@@ -17,8 +17,8 @@ fun=@rosenbrock;
 
 % domain definition
 % for Rosenbrock
-domain.hi=[2 3];
-domain.lo=[-1.5 -0.5];
+domain.hi=[2 3, 3, 3];
+domain.lo=[-1.5 -0.5, -1, -1];
 
 % for Sphere
 % domain.hi=[2,2];
@@ -33,7 +33,7 @@ alg_param.c2=0.2;                     % global best position coefficient
 alg_param.lr=1;                       % learning rate
 
 % Swarm Parameters Definition
-swarm_param.n_particles=100;
+swarm_param.n_particles=200;
 swarm_param.sampling_method='Uniform';
 
 % Swarm Initilaization

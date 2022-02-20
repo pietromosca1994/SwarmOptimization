@@ -1,11 +1,11 @@
 #include "swarm.h"
 
-swarm::swarm ( int _n_particles, domain_struct _x_domain, double (*func)(vector<double>)){ // constructor
-    n_particles=_n_particles;
-    n_dimensions = _x_domain.hi.size();
-    x_domain=_x_domain;
+swarm::swarm ( int _n_particles, domain_struct _x_domain, double (*func)(vector<double>)): \
+    n_particles(_n_particles), \
+    x_domain(_x_domain)
 
-    domain_struct v_domain;
+    { // constructor
+    n_dimensions = _x_domain.hi.size();
 
     x.resize(n_particles, vector<double>(n_dimensions, 0));
     y.resize(n_particles);
@@ -19,8 +19,8 @@ swarm::swarm ( int _n_particles, domain_struct _x_domain, double (*func)(vector<
 
     // initialize x
     srand(time(0)); // set the seed for rand()
-    for (int i=0; i<n_particles; i++){
-        for (int j=0; j<n_dimensions; j++){
+    for (int i=0; i<n_particles; i++){ // loop through particles 
+        for (int j=0; j<n_dimensions; j++){ // loop through dimensions
             x[i][j]=x_domain.lo[j]+((double) rand() / (RAND_MAX))*(x_domain.hi[j]-x_domain.lo[j]); // RAND_MAX is the maximum random number
         }
     }

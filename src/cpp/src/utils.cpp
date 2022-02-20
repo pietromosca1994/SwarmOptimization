@@ -1,12 +1,12 @@
 #include "utils.h"
 
-// function to multiply a vector by a scalar
+// function to multiply a vector by a scalar of type double
 int mulVectorScalar(vector<double> v1, double k, vector<double> &v2){
     transform(v1.begin(), v1.end(), v2.begin(), [k](double &c){ return c*k; });
     return 0;
 }
 
-// function to multiply a vector by a vector of double
+// function to multiply a vector by a vector of double of type double
 int mulVectors(vector<double> v1, vector<double> v2, vector<double> &v3){
     // check inputs
     if (int(v1.size())==int(v2.size()) && \
@@ -20,7 +20,7 @@ int mulVectors(vector<double> v1, vector<double> v2, vector<double> &v3){
     };
 };
 
-// function to sum two vectors of the same size
+// function to sum two vectors of the same size of type double 
 int sumVectors(vector<double> v1, vector<double> v2, vector<double> &v3){
     // check inputs
     if (int(v1.size())==int(v2.size()) && \
@@ -34,7 +34,7 @@ int sumVectors(vector<double> v1, vector<double> v2, vector<double> &v3){
     };
 };
 
-// function to substract two vectors of the same size
+// function to substract two vectors of the same size of type double
 int subVectors(vector<double> v1, vector<double> v2, vector<double> &v3){
     // check inputs
     if (int(v1.size())==int(v2.size()) && \

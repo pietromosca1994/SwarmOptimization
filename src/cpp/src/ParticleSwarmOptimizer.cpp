@@ -8,6 +8,7 @@ vector<double> ParticleSwarmOptimizer(double (*func)(vector<double>), int _n_par
     topology _topology(1);
 
     vector<double> gbest_x(_swarm.n_dimensions, 0.0);
+    
     for (int i=0; i<_alg_param.n_iter; i++){
         _topology.update_position(_swarm, _alg_param, func);
         _topology.update_velocity(_swarm, _alg_param);

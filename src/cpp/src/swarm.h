@@ -12,8 +12,8 @@ struct domain_struct{
 
 // class definition
 class swarm {
-        public: 
         // properties 
+        public: 
         int n_particles;
         int n_dimensions;
         domain_struct x_domain;

@@ -1,6 +1,6 @@
 # Swarm Optimization Toolbox
 
-Object oriented Swarm Optimization Toolbox for Octave/Matlab
+Object oriented Swarm Optimization Toolbox for Octave/Matlab/Simulink and C++.
 
 ## Algorithm implementations
 - Particle Swarm Optimization

@@ -2,7 +2,7 @@
 
 Object oriented Swarm Optimization Toolbox for Octave/Matlab/Simulink and C++.
 
-## Algorithm implementations
+## Algorithms implementations
 - Particle Swarm Optimization
 - Differential Evolution
 

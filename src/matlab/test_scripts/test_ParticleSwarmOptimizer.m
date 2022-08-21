@@ -4,12 +4,9 @@
 %% Date: 04.02.2021
 
 clear all;
-
-addpath('../benchmark_functions');
-addpath('../');
     
 %% Input definition
-verbose=10;
+verbose=1;
 log_active=true;
 
 % Objective Function
@@ -17,8 +14,8 @@ fun=@rosenbrock;
 
 % domain definition
 % for Rosenbrock
-domain.hi=[2 3, 3, 3];
-domain.lo=[-1.5 -0.5, -1, -1];
+domain.hi=[2, 3];
+domain.lo=[-1.5, -0.5];
 
 % for Sphere
 % domain.hi=[2,2];

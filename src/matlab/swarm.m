@@ -45,9 +45,10 @@ classdef swarm<handle
                 random=rand(obj.n_particles, obj.n_dimensions);
                 obj.x=(obj.x_domain.hi-obj.x_domain.lo).*random+obj.x_domain.lo;
             elseif strcmp(sampling_method, 'Normal')
-                random=abs(randn(obj.n_particles, obj.n_dimensions)); % Gaussian distribution of random numbers 
+                random=randn(obj.n_particles, obj.n_dimensions); % Gaussian distribution of random numbers 
                 random=random./max(random); % reduce the Gaussian distribution between 0 and 1
-                obj.x=(obj.x_domain.hi-obj.x_domain.lo).*random+obj.x_domain.lo;
+                obj.x=(obj.x_domain.hi+obj.x_domain.lo)./2+random.*(obj.x_domain.hi-obj.x_domain.lo);
+                %obj.x=(obj.x_domain.hi-obj.x_domain.lo).*random+obj.x_domain.lo;
             elseif strcmp(sampling_method, 'Cauchy')
                 % Generate Cauchy Random Numbers Using Student's (needs
                 % Statistics and Machine Learning Toolbox)

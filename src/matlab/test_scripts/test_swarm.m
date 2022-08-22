@@ -21,7 +21,7 @@ param.c2=1;
 
 % swarm initialization
 swarm=swarm;
-swarm.init(100, 'Normal', domain, fun);
+swarm.init(1000, 'Normal', domain, fun);
 
 % plotting swarm
 figure();

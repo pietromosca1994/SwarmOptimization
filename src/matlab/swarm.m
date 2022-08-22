@@ -42,9 +42,12 @@ classdef swarm<handle
                         
             if strcmp(sampling_method, 'Uniform')
                 % xi ~ U(blo, bup) where U Uniform Distribution
-                obj.x=(obj.x_domain.hi-obj.x_domain.lo).*rand(obj.n_particles, obj.n_dimensions)+obj.x_domain.lo;
+                random=rand(obj.n_particles, obj.n_dimensions);
+                obj.x=(obj.x_domain.hi-obj.x_domain.lo).*random+obj.x_domain.lo;
             elseif strcmp(sampling_method, 'Normal')
-                obj.x=(obj.x_domain.hi-obj.x_domain.lo).*randn(obj.n_particles, obj.n_dimensions)+obj.x_domain.lo;
+                random=abs(randn(obj.n_particles, obj.n_dimensions)); % Gaussian distribution of random numbers 
+                random=random./max(random); % reduce the Gaussian distribution between 0 and 1
+                obj.x=(obj.x_domain.hi-obj.x_domain.lo).*random+obj.x_domain.lo;
             elseif strcmp(sampling_method, 'Cauchy')
                 % Generate Cauchy Random Numbers Using Student's (needs
                 % Statistics and Machine Learning Toolbox)
@@ -126,7 +129,7 @@ classdef swarm<handle
             
             contourf(x_axis, y_axis, Z');
             hold on
-            scatter(obj.x(:, 1), obj.x(:, 2), 'filled', 'MarkerFaceColor', '#D95319');  
+            scatter(obj.x(:, 1), obj.x(:, 2), 'filled', 'MarkerFaceColor', 'r');  
 
             xlabel('x_1');
             ylabel('x_2');
@@ -151,7 +154,7 @@ classdef swarm<handle
             surf(x_axis, y_axis, Z', 'FaceAlpha',0.5);
             % contourf(x_axis, y_axis, Z')
             hold on;
-            scatter3(obj.x(:, 1), obj.x(:, 2), obj.y, 'filled', 'MarkerFaceColor', '#D95319');
+            scatter3(obj.x(:, 1), obj.x(:, 2), obj.y, 'filled', 'MarkerFaceColor', 'r');
             % scatter(obj.x(:, 1), obj.x(:, 2));
             % plot velocity vector field
             % quiver(obj.x(:, 1), obj.x(:, 2), obj.v(:,1), obj.v(:,2));
@@ -182,7 +185,7 @@ classdef swarm<handle
 
                     plot(x_axis, Z);
                     hold on;
-                    scatter(obj.x(:, dim), obj.y, 'filled', 'MarkerFaceColor', '#D95319'); 
+                    scatter(obj.x(:, dim), obj.y, 'filled', 'MarkerFaceColor', 'r'); 
                     xlabel(['x_' num2str(dim)]);
                     ylabel('y');
 

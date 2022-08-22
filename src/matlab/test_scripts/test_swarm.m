@@ -21,11 +21,11 @@ param.c2=1;
 
 % swarm initialization
 swarm=swarm;
-swarm.init(100,2,'Uniform', domain, fun);
+swarm.init(100, 'Normal', domain, fun);
 
 % plotting swarm
 figure();
-swarm.plot(domain)
+swarm.plot(fun, domain)
 
 % topology 
 topology=topology;
@@ -34,7 +34,7 @@ topology.update_velocity(swarm, param);
 
 % plotting swarm
 figure();
-swarm.plot(domain)
+swarm.plot(fun, domain)
 
 
 
